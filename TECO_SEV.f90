@@ -192,8 +192,8 @@ program TECO_MCMC
 ! ***************************************************************    
     
 !   Read parameters from file
-!    call getarg(1,parafile)
-     parafile='input/SEV_pars.txt'    
+    call getarg(1,parafile)
+!   parafile='input/SEV_pars.txt'    
 
     call Getparameters(lat,longi,wsmax,wsmin,           &              
     &   LAIMAX,LAIMIN,rdepth,Rootmax,Stemmax,           &
@@ -247,8 +247,8 @@ program TECO_MCMC
     
 !   Read climatic forcing
 !    climatefile='SPRUCE_forcing.txt'
-!    call getarg(2,climatefile1)
-    climatefile1='input/SEV_forcing_2010_2017.txt'
+    call getarg(2,climatefile1)
+!    climatefile1='input/SEV_forcing_2010_2017.txt'
 !    climatefile1='input/SPRUCE_forcing2022.txt' !used this file before DA
 !    climatefile1='input/SPRUCE_forcing2011.txt'
 !    climatefile1='input/SPRUCE_forcing2011_2012repeat.txt'
@@ -274,8 +274,8 @@ program TECO_MCMC
 !   getwatertable and snowdepth are used as forcing in soil thermal module by Yuanyuan   ..int
     
 !   Read observation data
-!    call getarg(3,obsfile1)
-    obsfile1='input/SEV_obs_flux.txt'
+    call getarg(3,obsfile1)
+!    obsfile1='input/SEV_obs_flux.txt'
 !   added obs files 2-6 for ..int
     obsfile2='input/SEV_surfacesoil_water.txt'
     obsfile3='input/SEV_soil_temperature.txt'
@@ -327,19 +327,19 @@ program TECO_MCMC
     end if
        
     
-        !    call getarg(5,MCMCargu)
-!    read(MCMCargu,'(i1)') MCMC
+    call getarg(5,MCMCargu)
+    read(MCMCargu,'(i1)') MCMC
 !    MCMC = 1    ! will be eventually totally replaced by    do_co2_da
           
     !  MCMC.eq.1 is the prerequisite of all DAs   
-     MCMC=0   
+!     MCMC=0   
 !    MCMC=0    ! Simulation
 !    MCMC=1    ! Data assimilation
 !    MCMC=2    ! Forecasting
      
 !   Start main loop
-!    call getarg(4,outdir)
-     outdir='output/'
+    call getarg(4,outdir)
+!     outdir='output/'
 !    outdir = 'output'
 !    if (.not. do_co2_da) then
      
@@ -474,9 +474,9 @@ program TECO_MCMC
 ! ***************************************************************************************    
 
      
-!    call getarg(6,DAparfile)
+    call getarg(6,DAparfile)
 !    DAparfile='input/SPRUCE_da_pars.txt'
-    DAparfile='input/SEV_da_pars.txt'
+!    DAparfile='input/SEV_da_pars.txt'
 !    if(do_soilt_da .or. do_snow_da .or. do_watertable_da .or. do_co2_da .or. do_co2_da .or. do_soilwater_da &
 !        .or. do_methane_da)then
     if(MCMC.eq.1) then
@@ -530,18 +530,18 @@ program TECO_MCMC
     write (my_fmt, '(a,i0,a)') '(',npara,'I12)'
     read(indexstring,*) coefindex
 
-!    call getarg(8,yrargu)
-!    read(yrargu,'(i4)') yrlim
-    yrlim = 2027
-!    call getarg(9,dyargu)
-!    read(dyargu,'(i3)') dylim
-    dylim = 365
-!    call getarg(10,Targu)
-!    read(Targu,'(f9.3)') Ttreat
-    Ttreat = 0.0
-!    call getarg(11,CO2argu) 
-!    read(CO2argu,'(f9.3)') CO2treat
-    CO2treat = 380.0
+    call getarg(8,yrargu)
+    read(yrargu,'(i4)') yrlim
+!    yrlim = 2027
+    call getarg(9,dyargu)
+    read(dyargu,'(i3)') dylim
+!    dylim = 365
+    call getarg(10,Targu)
+    read(Targu,'(f9.3)') Ttreat
+!    Ttreat = 0.0
+    call getarg(11,CO2argu) 
+    read(CO2argu,'(f9.3)') CO2treat
+!    CO2treat = 380.0
     
     
     DO rep=1,100
@@ -574,8 +574,8 @@ program TECO_MCMC
         Rr0 = parval(35)
     
 !   Read generated climatic forcing
-!    call getarg(7,forcingdir)
-    forcingdir = 'input/Weathergenerate'
+    call getarg(7,forcingdir)
+!    forcingdir = 'input/Weathergenerate'
     write(climatefile2,"(A120,A14,I3.3,A4)") trim(forcingdir),"/EMforcing_SEV",rep,".csv"
     climatefile2=trim(climatefile2)
     climatefile2=adjustl(climatefile2)
