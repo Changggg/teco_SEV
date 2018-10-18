@@ -3624,7 +3624,7 @@ return
    
       psyc=Patm*cpair*AirMa/(H2OLv*H2OMw)
       Cmolar=Patm/(Rconst*TairK)
-      fw1=AMIN1(AMAX1((FILDCP(1)-wcl(1))/(FILDCP(i)-WILTPT(i)),0.3),1.0)
+      fw1=AMIN1(AMAX1((FILDCP(1)-wcl(1))/(FILDCP(1)-WILTPT(1)),0.3),1.0)
 !      
       if (water_table_depth .gt. 0.0) then 
          Rsoil = 0. 
