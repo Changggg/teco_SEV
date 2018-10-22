@@ -355,10 +355,10 @@ program TECO_MCMC
 !        outfile = adjustl(outfile)
 !        open(61,file=outfile)
 
-        write(outfile,"(A120,A22)") trim(outdir),"/Simu_dailyflux001.txt"
-        outfile = trim(outfile)
-        outfile = adjustl(outfile)
-        open(62,file=outfile)
+!        write(outfile,"(A120,A22)") trim(outdir),"/Simu_dailyflux001.txt"
+!        outfile = trim(outfile)
+!        outfile = adjustl(outfile)
+!        open(62,file=outfile)
     ! MS insert simu_dailywater output   
         write(outfile,"(A120,A23)") trim(outdir),"/Simu_dailywater001.txt"
         outfile = trim(outfile)
