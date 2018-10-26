@@ -1,16 +1,4 @@
-# TECO SPRUCE
+# TECO SEV
 
-#### INSTALL
-
-* un ordered list
-
-
-
-#### RUN
-
-1. ordered list
-
-
-
-[EcoPAD](http://ecolab.cybercommons.org/ecopad_portal/)
+[EcoPAD](http://ecolab.nau.edu/ecopad_portalv2/)
 
