@@ -1,6 +1,10 @@
 lat	Longitude	wsmax	wsmin					
 0	0	0	0					
+<<<<<<< HEAD
 LAIMAX	LAIMIN	rdepth	Rootmax	Stemmax	AGB0			
+=======
+LAIMAX	LAIMIN	rdepth	Rootmax	Stemmax	AGB0				
+>>>>>>> 32c0e8fd50535aede7ce9d2af6465d86571da7d4
 0	0	0	0	0	0				
 SapR	SapS	SLA	GLmax	GRmax	Gsmax	stom_n		
 0	0	1	1	1	0	0		16
@@ -13,7 +17,11 @@ gddonset	Q10	Rl0	Rs0	Rr0
 lat	Longitude	wsmax	wsmin					
 47.5	-93.45	50	0.2					
 LAIMAX	LAIMIN	rdepth	Rootmax	Stemmax	AGB0			
+<<<<<<< HEAD
 4	0.3	100	400	500	0				
+=======
+4	0.3	100	400	500 0				
+>>>>>>> 32c0e8fd50535aede7ce9d2af6465d86571da7d4
 SapR	SapS	SLA	GLmax	GRmax	Gsmax	stom_n		
 1	0.2	50	10	10	10	2		
 a1	Ds0	Vcmx0	extkU	xfang	alpha			
@@ -24,7 +32,11 @@ gddonset	Q10	Rl0	Rs0	Rr0
 100	1	10	4.5	10				
 lat	Longitude	wsmax	wsmin					
 47.5	-93.45	50	0.2					
+<<<<<<< HEAD
 LAIMAX	LAIMIN	rdepth	Rootmax	Stemmax	AGB0			
+=======
+LAIMAX	LAIMIN	rdepth	Rootmax	Stemmax AGB0				
+>>>>>>> 32c0e8fd50535aede7ce9d2af6465d86571da7d4
 4	0.3	100	400	500 0				
 SapR	SapS	SLA	GLmax	GRmax	Gsmax	stom_n		
 1	0.2	300	50	30	30	2		
