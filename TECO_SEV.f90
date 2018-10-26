@@ -359,6 +359,7 @@ program TECO_MCMC
         outfile = trim(outfile)
         outfile = adjustl(outfile)
         open(62,file=outfile)
+        write(62,*)'sdoy, GPP_d, NEE_d, Reco_d,Foliage,fNPP,Wood,wNPP,Root,rNPP,soilC,pheno,LAI'   
     ! MS insert simu_dailywater output   
         write(outfile,"(A120,A23)") trim(outdir),"/Simu_dailywater001.txt"
         outfile = trim(outfile)
@@ -598,6 +599,7 @@ program TECO_MCMC
     outfile=trim(outfile)
     outfile=adjustl(outfile)
     open(62,file=outfile)
+    write(62,*)'sdoy, GPP_d, NEE_d, Reco_d,Foliage,fNPP,Wood,wNPP,Root,rNPP,soilC,pheno,LAI'
 ! MS inserted simu_daily output ****   
     write(outfile,"(A120,A16,I3.3,A4)") trim(outdir), "/Simu_dailywater",rep,".txt"
     outfile=trim(outfile)
