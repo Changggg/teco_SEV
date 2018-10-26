@@ -45,7 +45,7 @@ program TECO_MCMC
     integer seq,Pselect
     character(len=120) parafile,daparfile,outdir
     character(len=150) paraestfile
-    integer,parameter :: partotal=35
+    integer,parameter :: partotal=36
     integer,dimension(partotal):: DApar
     real,dimension(partotal) :: parval,parmin,parmax
     character(len=250) indexstring
@@ -196,13 +196,13 @@ program TECO_MCMC
 !   parafile='input/SEV_pars.txt'    
 
     call Getparameters(lat,longi,wsmax,wsmin,           &              
-    &   LAIMAX,LAIMIN,rdepth,Rootmax,Stemmax,           &
+    &   LAIMAX,LAIMIN,rdepth,Rootmax,Stemmax,AGB0,       &
     &   SapR,SapS,SLA,GLmax,GRmax,Gsmax,stom_n,         &
     &   a1,Ds0,Vcmax0,extkU,xfang,alpha,                 &
     &   Tau_Leaf,Tau_Wood,Tau_Root,Tau_F,Tau_C,         &
     &   Tau_Micro,Tau_slowSOM,Tau_Passive,              &
     &   gddonset,Q10,RL0,Rs0,Rr0,parafile,              &
-    &   r_me,Q10pro,kCH4,Omax,CH4_thre,Tveg,Tpro_me,Toxi,AGB0)       !..int added for methane module
+    &   r_me,Q10pro,kCH4,Omax,CH4_thre,Tveg,Tpro_me,Toxi)       !..int added for methane module
     
     parval = (/lat,longi,wsmax(1),wsmin(1),           &              
     &   LAIMAX,LAIMIN,rdepth,Rootmax,Stemmax,           &
@@ -210,7 +210,7 @@ program TECO_MCMC
     &   a1,Ds0,Vcmax0,extkU,xfang,alpha,                 &
     &   Tau_Leaf,Tau_Wood,Tau_Root,Tau_F,Tau_C,         &
     &   Tau_Micro,Tau_slowSOM,Tau_Passive,              &
-    &   gddonset,Q10,RL0,Rs0,Rr0/)
+    &   gddonset,Q10,RL0,Rs0,Rr0,AGB0/)
     
 ! ***********  int initial values of paras used in soil thermal is added here instead of in the pars file ********   
 ! Parameters for soil physical part Yuanyuan 
@@ -711,7 +711,7 @@ program TECO_MCMC
     k3=0
     j=0
 !  below is webpage version of giving the coef min max, for JJ carbon, after integration, all da pars read in need to be changed     
-    do i=1,35
+    do i=1,36
        if (DApar(i).eq. 1) then
            j=j+1
            coef(j)=parval(i)        !define initial value for parameters, equal to the parameter file value
@@ -720,8 +720,8 @@ program TECO_MCMC
            coefmax(j)=parmax(i)
        endif
     enddo
-!    write(71,*) npara
-!    write(71,*)(coefindex(i),i=1,npara)
+    write(71,*) npara
+    write(71,*)(coefindex(i),i=1,npara)
 !!  ..int here I added da pars read in for a local version
 !    if (do_co2_da) then     
 !    !    coef(1)=Tau_Leaf
@@ -892,6 +892,7 @@ program TECO_MCMC
         RL0 = parval(33)
         Rs0 = parval(34)
         Rr0 = parval(35)
+        AGB0= parval(36)
 
     
 !   update parameters.. int local run 
@@ -5415,22 +5416,22 @@ return
 !========================================================
 ! Subroutine 1. Read parameters from file
     subroutine Getparameters(lat,longi,wsmax,wsmin,     &              
-    &   LAIMAX,LAIMIN,rdepth,Rootmax,Stemmax,           &
+    &   LAIMAX,LAIMIN,rdepth,Rootmax,Stemmax,AGB0,      &
     &   SapR,SapS,SLA,GLmax,GRmax,Gsmax,stom_n,         &
     &   a1,Ds0,Vcmx0,extkU,xfang,alpha,                 &
     &   Tau_Leaf,Tau_Wood,Tau_Root,Tau_F,Tau_C,         &
     &   Tau_Micro,Tau_slowSOM,Tau_Passive,              &
     &   gddonset,Q10,Rl0,Rs0,Rr0,parafile,              &
-    &   r_me,Q10pro,kCH4,Omax,CH4_thre,Tveg,Tpro_me,Toxi,AGB0)
+    &   r_me,Q10pro,kCH4,Omax,CH4_thre,Tveg,Tpro_me,Toxi)
     
     implicit none
     real lat,longi,wsmax(10),wsmin(10)                  
-    real LAIMAX,LAIMIN,rdepth,Rootmax,Stemmax
+    real LAIMAX,LAIMIN,rdepth,Rootmax,Stemmax,AGB0
     real SapR,SapS,SLA,GLmax,GRmax,Gsmax,stom_n
     real a1,Ds0,Vcmx0,extkU,xfang,alpha
     real Tau_Leaf,Tau_Wood,Tau_Root,Tau_F,Tau_C
     real Tau_Micro,Tau_slowSOM,Tau_Passive
-    real gddonset, Q10,Rl0,Rs0,Rr0,AGB0
+    real gddonset, Q10,Rl0,Rs0,Rr0
     character(len=50) parafile,commts
 !   *** .int  added for par in methane module    
     real r_me,Q10pro,kCH4,Omax,CH4_thre,Tveg,Tpro_me,Toxi
@@ -5442,7 +5443,7 @@ return
     read(10,11)commts
     read(10,*)lat,longi,wsmax(1),wsmin(1)
     read(10,11)commts
-    read(10,*)LAIMAX,LAIMIN,rdepth,Rootmax,Stemmax ,AGB0   
+    read(10,*)LAIMAX,LAIMIN,rdepth,Rootmax,Stemmax,AGB0   
     read(10,11)commts
     read(10,*)SapR,SapS,SLA,GLmax,GRmax,Gsmax,stom_n
     read(10,11)commts
@@ -5477,10 +5478,10 @@ return
     open(15,file=paraestfile,status='old',ACTION='read',     &
     &     IOSTAT=istat6)
 
-!    read(15,*) npara
-    npara = 15   ! EH for Sevilleta site
-!    read(15,'(A)') indexstring
-    indexstring = '12 13 14 19 23 25 26 27 28 29 30 31 32 33 35'   ! EH for Sevilleta site: order of parameter
+    read(15,*) npara
+!    npara = 15   ! EH for Sevilleta site
+    read(15,'(A)') indexstring
+!    indexstring = '12 13 14 19 23 25 26 27 28 29 30 31 32 33 35'   ! EH for Sevilleta site: order of parameter
 
     m=0
 !   open and read input file for getting climate data
@@ -5782,8 +5783,8 @@ return
     subroutine GetDAcheckbox(DApar,parmin,parmax,DAparfile)
     
     implicit none
-    integer,dimension(35):: DApar
-    real,dimension(35):: parmin,parmax
+    integer,dimension(36):: DApar
+    real,dimension(36):: parmin,parmax
     character(len=50) DAparfile,commts
 
     DAparfile=TRIM(DAparfile)
@@ -5792,7 +5793,7 @@ return
     read(15,11)commts
     read(15,*)DApar(1),DApar(2),DApar(3),DApar(4)
     read(15,11)commts
-    read(15,*)DApar(5),DApar(6),DApar(7),DApar(8),DApar(9)    
+    read(15,*)DApar(5),DApar(6),DApar(7),DApar(8),DApar(9),DApar(36)    
     read(15,11)commts
     read(15,*)DApar(10),DApar(11),DApar(12),DApar(13),DApar(14),DApar(15),DApar(16)
     read(15,11)commts
@@ -5805,7 +5806,7 @@ return
     read(15,11)commts
     read(15,*)parmin(1),parmin(2),parmin(3),parmin(4)
     read(15,11)commts
-    read(15,*)parmin(5),parmin(6),parmin(7),parmin(8),parmin(9)    
+    read(15,*)parmin(5),parmin(6),parmin(7),parmin(8),parmin(9),parmin(36)    
     read(15,11)commts
     read(15,*)parmin(10),parmin(11),parmin(12),parmin(13),parmin(14),parmin(15),parmin(16)
     read(15,11)commts
@@ -5818,7 +5819,7 @@ return
     read(15,11)commts
     read(15,*)parmax(1),parmax(2),parmax(3),parmax(4)
     read(15,11)commts
-    read(15,*)parmax(5),parmax(6),parmax(7),parmax(8),parmax(9)    
+    read(15,*)parmax(5),parmax(6),parmax(7),parmax(8),parmax(9),parmax(36)    
     read(15,11)commts
     read(15,*)parmax(10),parmax(11),parmax(12),parmax(13),parmax(14),parmax(15),parmax(16)
     read(15,11)commts
