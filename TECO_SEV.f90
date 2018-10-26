@@ -350,15 +350,15 @@ program TECO_MCMC
     end if
      
     if(MCMC.eq.0) then
-!        write(outfile,"(A120,A18)") trim(outdir),"/SPRUCE_yearly.txt"
-!        outfile = trim(outfile)
-!        outfile = adjustl(outfile)
-!        open(61,file=outfile)
+        write(outfile,"(A120,A18)") trim(outdir),"/TECO_yearly.txt"
+        outfile = trim(outfile)
+        outfile = adjustl(outfile)
+        open(61,file=outfile)
 
-!        write(outfile,"(A120,A22)") trim(outdir),"/Simu_dailyflux001.txt"
-!        outfile = trim(outfile)
-!        outfile = adjustl(outfile)
-!        open(62,file=outfile)
+        write(outfile,"(A120,A22)") trim(outdir),"/Simu_dailyflux001.txt"
+        outfile = trim(outfile)
+        outfile = adjustl(outfile)
+        open(62,file=outfile)
     ! MS insert simu_dailywater output   
         write(outfile,"(A120,A23)") trim(outdir),"/Simu_dailywater001.txt"
         outfile = trim(outfile)
