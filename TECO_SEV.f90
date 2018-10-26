@@ -350,10 +350,10 @@ program TECO_MCMC
     end if
      
     if(MCMC.eq.0) then
-        write(outfile,"(A120,A18)") trim(outdir),"/TECO_yearly.txt"
-        outfile = trim(outfile)
-        outfile = adjustl(outfile)
-        open(61,file=outfile)
+!        write(outfile,"(A120,A18)") trim(outdir),"/TECO_yearly.txt"
+!        outfile = trim(outfile)
+!        outfile = adjustl(outfile)
+!        open(61,file=outfile)
 
         write(outfile,"(A120,A22)") trim(outdir),"/Simu_dailyflux001.txt"
         outfile = trim(outfile)
