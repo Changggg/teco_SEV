@@ -319,7 +319,7 @@ program TECO_MCMC
 !    QC=(/500.,650.,200.,119.,300.,322.,38340.,23120./)     ! ecosystem initial state for 2011 forward
     if(is_grass)then
 !       QC=(/150.,0.,250.,119.,300.,322.,38340.,23120./)
-       QC=(/150.,0.,250.,10.,10.,100.,2400.,2500./)  ! EH for seviellta site ! site specific 
+       QC=(/50.,0.,50.,50.,50.,100.,2400.,2500./)  ! EH for seviellta site ! site specific 
        ! EH microbial C conc = 0.1 mg/g, microbial C content = 10000 cm2 * 100 cm * 1.0 cm3/g * 0.1 mg/g = 100 C g/m2, from Kieft et al. (1998), Ecology
        ! EH soc conc = 5 mg/g, soc content = 10000 cm2 * 100 cm * 1.0 cm3/g * 5.0 mg/g = 5000 C g/m2, from Kieft et al. (1998), Ecology
     else
@@ -5460,8 +5460,8 @@ return
 !!   ***     
 11  format(a132)
     close(10)
-    wsmin=(/5,7,7,7,5,5,5,5,5,5/)
-    wsmax=(/22,30,40,35,35,30,30,30,30,30/)
+    wsmin=(/5,7,9,7,5,5,5,5,5,5/)
+    wsmax=(/25,38,40,40,40,35,35,35,35,35/)
     return
     end
 
@@ -5922,7 +5922,7 @@ return
     j9=0
     j10=0
     j11=0
-    sdco=0.09
+    sdco=0.01
     
     do i=1,len1
         day=int(obs_spruce(1,i))
@@ -5936,7 +5936,7 @@ return
                 J_gpp=J_gpp+(dObsSim*dObsSim)/(2*obs_spruce(2,i)*obs_spruce(2,i)*sdco)
             endif
         else if (obs_spruce(2,i).eq.0)then
-            J_gpp=J_gpp+(dObsSim*dObsSim)/(2*0.3*0.3)
+            J_gpp=J_gpp+(dObsSim*dObsSim)/(2*0.1*0.1)
 !            write (*,*) day,obs_spruce(2,i),Simu_dailyflux(1,day),std(2,i)
         endif
         if(obs_spruce(3,i).gt.-999)then
