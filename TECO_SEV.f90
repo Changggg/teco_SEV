@@ -5943,72 +5943,92 @@ return
         if(obs_spruce(3,i).gt.-999)then
             j2=j2+1
             dObsSim=Simu_dailyflux(2,day)-obs_spruce(3,i)
-            if(std(3,i).gt.-999)then
+            if(std(3,i).gt.0)then
                 J_nee=J_nee+(dObsSim*dObsSim)/(2*std(3,i)*std(3,i))
-            else
+            else if(obs_spruce(3,i).ne.0)then
                 J_nee=J_nee+(dObsSim*dObsSim)/(2*obs_spruce(3,i)*obs_spruce(3,i)*sdco)
             endif
         endif
         if(obs_spruce(4,i).gt.-999)then
             j3=j3+1
             dObsSim=Simu_dailyflux(3,day)-obs_spruce(4,i)
-            if(std(4,i).gt.-999)then
+            if(std(4,i).gt.0)then
                 J_er=J_er+(dObsSim*dObsSim)/(2*std(4,i)*std(4,i))
-            else
+            else if(obs_spruce(4,i).ne.0)then
                 J_er=J_er+(dObsSim*dObsSim)/(2*obs_spruce(4,i)*obs_spruce(4,i)*sdco)
             endif
         endif
         if(obs_spruce(5,i).gt.-999)then
             j4=j4+1
             dObsSim=Simu_dailyflux(4,day)-obs_spruce(5,i)
-            if(std(5,i).gt.-999)then
+            if(std(5,i).gt.0)then
                 J_foliage=J_foliage+(dObsSim*dObsSim)/(2*std(5,i)*std(5,i))
-            else
+            else if(obs_spruce(5,i).ne.0)then
                 J_foliage=J_foliage+(dObsSim*dObsSim)/(2*obs_spruce(5,i)*obs_spruce(5,i)*sdco)
             endif
         endif
         if(obs_spruce(6,i).gt.-999)then
             j5=j5+1
             dObsSim=Simu_dailyflux(5,day)-obs_spruce(6,i)
-            if(std(6,i).gt.-999)then
+            if(std(6,i).gt.0)then
                 J_fnpp=J_fnpp+(dObsSim*dObsSim)/(2*std(6,i)*std(6,i))
-            else
+            else if(obs_spruce(6,i).ne.0)then
                 J_fnpp=J_fnpp+(dObsSim*dObsSim)/(2*obs_spruce(6,i)*obs_spruce(6,i)*sdco)
             endif
         endif
         if(obs_spruce(7,i).gt.-999)then
             j6=j6+1
             dObsSim=Simu_dailyflux(6,day)-obs_spruce(7,i)
-            if(std(7,i).gt.-999)then
+            if(std(7,i).gt.0)then
                 J_wood=J_wood+(dObsSim*dObsSim)/(2*std(7,i)*std(7,i))
-            else
+            else if(obs_spruce(7,i).ne.0)then
                 J_wood=J_wood+(dObsSim*dObsSim)/(2*obs_spruce(7,i)*obs_spruce(7,i)*sdco)
             endif
         endif
         if(obs_spruce(8,i).gt.-999)then
             j7=j7+1
             dObsSim=Simu_dailyflux(7,day)-obs_spruce(8,i)
+            if(std(8,i).gt.0)then
             J_wnpp=J_wnpp+(dObsSim*dObsSim)/(2*std(8,i)*std(8,i))
+            else if(obs_spruce(8,i).ne.0)then
+            J_wnpp=J_wnpp+(dObsSim*dObsSim)/(2*obs_spruce(8,i)*obs_spruce(8,i)*sdco)
+            endif
         endif
         if(obs_spruce(9,i).gt.-999)then
             j8=j8+1
             dObsSim=Simu_dailyflux(8,day)-obs_spruce(9,i)
+            if(std(9,i).gt.0)then           
             J_root=J_root+(dObsSim*dObsSim)/(2*std(9,i)*std(9,i))
+            else if(obs_spruce(9,i).ne.0)then
+            J_root=J_root+(dObsSim*dObsSim)/(2*obs_spruce(9,i)*obs_spruce(9,i)*sdco)
+            endif
         endif
         if(obs_spruce(10,i).gt.-999)then
             j9=j9+1
             dObsSim=Simu_dailyflux(9,day)-obs_spruce(10,i)
+            if(std(10,i).gt.0)then              
             J_rnpp=J_rnpp+(dObsSim*dObsSim)/(2*std(10,i)*std(10,i))
+            else if(obs_spruce(10,i).ne.0)then
+            J_rnpp=J_rnpp+(dObsSim*dObsSim)/(2*obs_spruce(10,i)*obs_spruce(10,i)*sdco)
+            endif
         endif
         if(obs_spruce(11,i).gt.-999)then
             j10=j10+1
             dObsSim=Simu_dailyflux(10,day)-obs_spruce(11,i)
+            if(std(11,i).gt.0)then              
             J_soilc=J_soilc+(dObsSim*dObsSim)/(2*std(11,i)*std(11,i))
+            else if(obs_spruce(11,i).ne.0)then
+            J_soilc=J_soilc+(dObsSim*dObsSim)/(2*obs_spruce(11,i)*obs_spruce(11,i)*sdco)
+            endif            
         endif
         if(obs_spruce(12,i).gt.-999)then
             j11=j11+1
             dObsSim=Simu_dailyflux(11,day)-obs_spruce(12,i)
+            if(std(12,i).gt.0)then            
             J_pheno=J_pheno+(dObsSim*dObsSim)/(2*std(12,i)*std(12,i))
+            else if(obs_spruce(12,i).ne.0)then
+            J_pheno=J_pheno+(dObsSim*dObsSim)/(2*obs_spruce(12,i)*obs_spruce(12,i)*sdco)
+            endif  
         endif
     enddo
 
@@ -6027,7 +6047,9 @@ return
     !J_new=J_gpp+J_er+J_foliage+J_wood   
     !J_new = J_gpp+J_er+J_foliage+J_wood+J_fnpp+J_wnpp
     !J_new = J_gpp+J_er+J_foliage+J_wood+J_root+J_soilc
-    J_new=J_gpp+J_er+J_foliage+J_wood+J_fnpp+J_wnpp+J_root+J_rnpp+J_soilc+J_pheno 
+    J_new=J_gpp+J_nee+J_er+J_foliage+J_fnpp+J_wood+J_wnpp+J_root+J_rnpp+J_soilc+J_pheno
+    !print*,J_gpp,J_nee,J_er,J_foliage,J_fnpp,J_wood,J_wnpp,J_root,J_rnpp,J_soilc,J_pheno
+	
     !J_new=J_soilc 
    endif
 !   *** .int
