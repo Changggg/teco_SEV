@@ -56,7 +56,7 @@ program TECO_MCMC
     integer,dimension(ilines):: year_seq,doy_seq,hour_seq
     real forcing_data(iiterms,ilines)
     character(len=150) climatefile
-    integer yr_length,lines
+    integer yr_length,lines,total_days
     integer,dimension(ilines):: year_seq1,doy_seq1,hour_seq1
     real forcing_data1(iiterms,ilines)
     character(len=150) climatefile1
@@ -260,7 +260,7 @@ program TECO_MCMC
 !    snowdepthfile='input/SPRUCE_Snow_Depth_2011-2014.txt'
     
     call Getclimate(year_seq1,doy_seq1,hour_seq1,          &
-    &   forcing_data1,climatefile1,lines1,yr_length1)
+    &   forcing_data1,climatefile1,lines1,yr_length1,total_days)
     if (.not. do_soilphy)then
         call Getwatertable(year_seq,doy_seq,hour_seq,          &
         &   water_table,watertablefile,lines,yr_length)
@@ -495,7 +495,7 @@ program TECO_MCMC
     climatefile = climatefile1
     lines = lines1
     yr_length = yr_length1
-    yrs_eq=yr_length*10  ! spin up length 
+    yrs_eq=yr_length*0  ! spin up length 
 !    yrs_eq=72  ! spin up length 
     
 
@@ -582,7 +582,7 @@ program TECO_MCMC
     climatefile2=adjustl(climatefile2)
 
     call Getclimate(year_seq1,doy_seq,hour_seq,          &
-    &   forcing_data,climatefile2,lines,yr_length)
+    &   forcing_data,climatefile2,lines,yr_length,total_days)
     do k1=1,lines
         year_seq(k1)=year_seq1(k1)
         doy_seq(k1)=doy_seq(k1)
@@ -1018,7 +1018,7 @@ program TECO_MCMC
                     outfile=trim(outfile)
                     outfile=adjustl(outfile)
                     open(662,file=outfile)
-                    do i=1,2192
+                    do i=1,total_days
                         write(662,6602)i,(Simu_dailyflux(j,i),j=1,14)
                     enddo
 6602                 format((i7),",",14(f15.4,","))
@@ -5500,7 +5500,7 @@ return
 ! ====================================================================
 ! Subroutine 2. Read climatic forcing from file   
     subroutine Getclimate(year_seq,doy_seq,hour_seq,          &
-    &   forcing_data,climatefile,lines,yr_length)
+    &   forcing_data,climatefile,lines,yr_length,total_days)
     
     implicit none
     integer, parameter :: ilines=150000
@@ -5508,7 +5508,7 @@ return
     integer,dimension(ilines):: year_seq,doy_seq,hour_seq
     real forcing_data(iiterms,ilines)
     character(len=150) climatefile,commts
-    integer m,n,istat1,lines,yr_length
+    integer m,n,istat1,lines,yr_length,total_days
     open(11,file=climatefile,status='old',ACTION='read',     &
     &     IOSTAT=istat1)
 !     skip 2 lines of input met data file
@@ -5524,6 +5524,7 @@ return
     enddo ! end of reading the forcing file
     lines=m-1
     yr_length=(year_seq(lines)-year_seq(1))+1
+	total_days=lines/24				
     close(11)    ! close forcing file
     return
     end
