@@ -51,7 +51,7 @@ program TECO_MCMC
     character(len=250) indexstring
     
 !   for climate file
-    integer, parameter :: ilines=150000
+    integer, parameter :: ilines=200000
     integer, parameter :: iiterms=7
     integer,dimension(ilines):: year_seq,doy_seq,hour_seq
     real forcing_data(iiterms,ilines)
@@ -177,12 +177,6 @@ program TECO_MCMC
      
      use_fence=.False.
      use_init=.False.
-!     print*,'parafile=',parafile
-!     print*,'climatefile1=',climatefile1
-!     print*,'outdir=',outdir
-!     print*,'use_fence=',use_fence
-!     print*,'use_init=',use_init
-!     print*,MCMC
 
     yrlim = 2017   ! what is yrlim and dylim for?
     dylim = 365
@@ -529,7 +523,7 @@ program TECO_MCMC
     call Getparaest(paraestfile,paraest,seq,npara,indexstring)
     allocate(coefindex(npara))
     write (my_fmt, '(a,i0,a)') '(',npara,'I12)'
-    read(indexstring,*) coefindex
+    read(indexstring,my_fmt) coefindex
 
     call getarg(8,yrargu)
     read(yrargu,'(i4)') yrlim
@@ -550,8 +544,7 @@ program TECO_MCMC
     CALL random_number(randnum)
     Pselect = int(seq/2+randnum*(seq-seq/2))
     
-    !Pselect = 10000
-!    print *,paraest(2:16,Pselect)
+
     do k1=1,npara
         parval(coefindex(k1))=paraest(k1+1,Pselect)
     enddo
@@ -561,7 +554,7 @@ program TECO_MCMC
         Gsmax = parval(15)
         Vcmax0 = parval(19)
         Tau_Leaf = parval(23)
-        Tau_Wood = parval(24)
+		Tau_Wood = parval(24)					 
         Tau_Root = parval(25)
         Tau_F = parval(26)
         Tau_C = parval(27)
@@ -571,7 +564,7 @@ program TECO_MCMC
         gddonset = parval(31)
         Q10 = parval(32)
         RL0 = parval(33)
-        Rs0 = parval(34)
+		Rs0 = parval(34)				
         Rr0 = parval(35)
     
 !   Read generated climatic forcing
@@ -581,19 +574,19 @@ program TECO_MCMC
     climatefile2=trim(climatefile2)
     climatefile2=adjustl(climatefile2)
 
-    call Getclimate(year_seq1,doy_seq,hour_seq,          &
+    call Getclimate(year_seq,doy_seq,hour_seq,          &
     &   forcing_data,climatefile2,lines,yr_length,total_days)
-    do k1=1,lines
+    do k1=1,lines1
         year_seq(k1)=year_seq1(k1)
-        doy_seq(k1)=doy_seq(k1)
-        hour_seq(k1)=hour_seq(k1)
-        forcing_data(1,k1)=forcing_data(1,k1)
-        forcing_data(2,k1)=forcing_data(2,k1)
-        forcing_data(3,k1)=forcing_data(3,k1)
-        forcing_data(4,k1)=forcing_data(4,k1)
-        forcing_data(5,k1)=forcing_data(5,k1)
-        forcing_data(6,k1)=forcing_data(6,k1)
-        forcing_data(7,k1)=forcing_data(7,k1)
+        doy_seq(k1)=doy_seq1(k1)
+        hour_seq(k1)=hour_seq1(k1)
+        forcing_data(1,k1)=forcing_data1(1,k1)
+        forcing_data(2,k1)=forcing_data1(2,k1)
+        forcing_data(3,k1)=forcing_data1(3,k1)
+        forcing_data(4,k1)=forcing_data1(4,k1)
+        forcing_data(5,k1)=forcing_data1(5,k1)
+        forcing_data(6,k1)=forcing_data1(6,k1)
+        forcing_data(7,k1)=forcing_data1(7,k1)
     enddo
     write(outfile,"(A120,A15,I3.3,A4)") trim(outdir), "/Simu_dailyflux",rep,".txt"
     outfile=trim(outfile)
@@ -625,6 +618,7 @@ program TECO_MCMC
 !   QC=(/100.,800.,100.,39.,100.,122.,834.,12./)
  !   QC=(/440.,700.,300.,119.,300.,322.,38340.,23120./)
 !    QC=(/300.,650.,100.,119.,300.,322.,38340.,23120./)
+
     yrs_eq=yr_length*0  ! spin up length 
 !    call TECO_simu(MCMC,Simu_dailyflux,Simu_soilwater,obs_soilwater,      &
 !     &        obs_spruce,yrlim,dylim,Ttreat,CO2treat,              &
@@ -857,7 +851,7 @@ program TECO_MCMC
             do while(paraflag.gt.0)
                 call gengaussvect(fact_rejet*gamma,coefac,coefnorm,npara)
                 paraflag=0
-!                print*,'paraflag=',paraflag 
+!                
                 do k1=1,npara
                     if(coefnorm(k1).lt.0. .or. coefnorm(k1).gt.1.)then
                     paraflag=paraflag+1
@@ -867,7 +861,7 @@ program TECO_MCMC
             enddo
             do k1=1,npara
                 coef(k1)=coefmin(k1)+coefnorm(k1)*(coefmax(k1)-coefmin(k1))
-!                print*,k1,coef(k1),coefnorm(k1),coefmin(k1),coefmax(k1)
+!                
             enddo
         else
             call coefgenerate(coefac,coefmax,coefmin,coef,search_length,npara)
@@ -1200,7 +1194,7 @@ program TECO_MCMC
     real fwsoil_yr,omega_yr,topfws_yr, difference,diff_yr,diff_d
             
       integer, parameter :: iiterms=7            ! 9 for Duke forest FACE
-      integer, parameter :: ilines=150000         ! the maxmum records of Duke Face, 1998~2007
+      integer, parameter :: ilines=200000         ! the maxmum records of Duke Face, 1998~2007
       real, parameter:: times_storage_use=720.   ! 720 hours, 30 days
       integer  lines,idays,MCMC
       integer,dimension(ilines):: year_seq,doy_seq,hour_seq
@@ -1610,7 +1604,7 @@ program TECO_MCMC
               RootSap=AMIN1(Rootmax,SapR*bmRoot)
               NSCmin=5. 
               NSCmax=0.05*(StemSap+RootSap+QC(1))
-!              print*,NSCmax
+!             
               if(Ta.gt.5.0)GDD5=GDD5+Ta
  
 !   *** int  
@@ -1728,7 +1722,7 @@ program TECO_MCMC
                   Tair=input_data(1,m)   ! Tair
                   Tsoil=input_data(2,m)    ! SLT
                   co2ca=380.0*1.0E-6
-                  if (yr .gt. 1)then
+                  if (yr .gt. 8)then
                       Tair = Tair + Ttreat
                       Tsoil = Tsoil + Ttreat
                       co2ca=CO2treat*1.0E-6 ! CO2 concentration,ppm-->1.0E-6
@@ -2199,11 +2193,11 @@ program TECO_MCMC
 !            if(MCMC.ne.1) then
             if (MCMC .NE. 1) then            
                 write(*,*)'annual_summary:',year,LAI,gpp_yr,NPP_yr,pheno,pheno
-                write(61,601)year,LAI,gpp_yr,NPP_yr,Ra_yr,Rh_yr, &
-                &   ET,rain_yr,transp_yr,evap_yr,runoff_yr,GL_yr,    &
-                &   GW_yr,GR_yr,Pool1,Pool2,Pool3,Pool4,Pool5,   &
-                &   Pool6,Pool7,Pool8,out1_yr,out2_yr,out3_yr,   &
-                &   out4_yr,out5_yr,out6_yr,out7_yr,out8_yr
+                 write(61,601)year,LAI,gpp_yr,NPP_yr,Ra_yr,Rh_yr, &
+                 &   ET,rain_yr,transp_yr,evap_yr,runoff_yr,GL_yr,    &
+                 &   GW_yr,GR_yr,Pool1,Pool2,Pool3,Pool4,Pool5,   &
+                 &   Pool6,Pool7,Pool8,out1_yr,out2_yr,out3_yr,   &
+                 &   out4_yr,out5_yr,out6_yr,out7_yr,out8_yr
             endif            
 601         format(i7,",",29(f15.4,","))
             accumulation=0.0
@@ -2211,8 +2205,9 @@ program TECO_MCMC
          enddo            !end of simulations multiple years
          
 !         if(MCMC.ne.1)then
-         if (MCMC .NE. 1) then
+       	 if (MCMC .NE. 1) then
              do i=1,daily
+
              write(62,602)i,(Simu_dailyflux(j,i),j=1,12)
              write(662,6602)i,(Simu_dailyflux14(j,i),j=1,14)
              write(63,603)i,(Simu_dailywater(j,i),j=1,31)
@@ -2223,6 +2218,7 @@ program TECO_MCMC
              write(67,607)i,(Simu_dailywatertable(j,i),j=1,1)
              write(68,608)i,(Simu_snowdepth(j,i),j=1,1)
              enddo
+		
        
 
 602      format((i7),",",11(f15.4,","),(f15.4))
@@ -2442,13 +2438,13 @@ program TECO_MCMC
     real conv                  ! converter from "umol C /m2/s" to "gC/m2/hour"
 
     conv=3600.*12./1000000.    ! umol C /m2/s--> gC/m2/hour
-!    print*,'respiration',Rl0,Rs0,Rr0
+
     if(LAI.gt.LAIMIN) then
         RmLeaf=Rl0*SNRauto*bmleaf*0.48*SLA*0.1     &               
             &   *Q10**((Tair-10.)/10.)*fnsc*conv
         RmStem=Rs0*SNRauto*StemSap*0.001*Q10**((Tair-25.)/10.)*fnsc*conv
         RmRoot=Rr0*SNRauto*RootSap*0.001*Q10**((Tair-25.)/10.)*fnsc*conv
-!        print*,'greater than LAImin',RmLeaf,RmStem,RmRoot
+
     else
         RmLeaf=0.3*GPP
         RmStem=0.3*GPP
@@ -2462,7 +2458,7 @@ program TECO_MCMC
         Rmroot=Rmroot/Rmain*0.0015*NSC ! EH modified 181013
         Rmain=Rmleaf+Rmstem+Rmroot
     endif
-!    print*,'end respiration',RmLeaf,RmStem,RmRoot
+
     return
     end
 
@@ -2558,8 +2554,7 @@ program TECO_MCMC
 !       else
 !           rain_t=rain_new
 !       endif
-           
-!       print*,'infilt',rain_t,melt,rain_new   !dbmemo
+
            infilt=infilt+rain_t
        if (ice(1) .gt. 0.0) then
            !infilt = 0.0
