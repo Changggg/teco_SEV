@@ -489,7 +489,7 @@ program TECO_MCMC
     climatefile = climatefile1
     lines = lines1
     yr_length = yr_length1
-    yrs_eq=yr_length*10  ! spin up length 
+    yrs_eq=yr_length*0  ! spin up length 
 !    yrs_eq=72  ! spin up length 
     
 
