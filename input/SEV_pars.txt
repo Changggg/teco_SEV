@@ -5,7 +5,7 @@ LAIMAX	LAIMIN	rdepth	Rootmax	Stemmax	AGB0
 SapR	SapS	SLA	GLmax	GRmax	Gsmax	stom_n	
 1	0.2	100	10.56	21.71	27.03	2	
 a1	Ds0	Vcmx0	extkU	xfang	alpha		
-8	2000	70	0.51	0	0.385		
+8	2000	30	0.51	0	0.385		
 Tau_Leaf	Tau_Wood	Tau_Root	Tau_F	Tau_C	Tau_Micro	Tau_SlowSOM	Tau_Passive
 0.4	214.1	0.6394	0.2784	8.4561	0.3118	942.7995	3983.99
 gddonset	Q10	Rl0	Rs0	Rr0			

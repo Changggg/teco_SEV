@@ -3,9 +3,9 @@ lat	Longitude	wsmax	wsmin
 LAIMAX	LAIMIN	rdepth	Rootmax	Stemmax	AGB0		
 0	0	0	0	0	0		
 SapR	SapS	SLA	GLmax	GRmax	Gsmax	stom_n	
-0	0	1	1	1	0	0	
+0	0	0	1	0	0	0	
 a1	Ds0	Vcmx0	extkU	xfang	alpha		
-0	0	1	0	0	0		
+0	0	0	0	0	0		
 Tau_Leaf	Tau_Wood	Tau_Root	Tau_F	Tau_C	Tau_Micro	Tau_SlowSOM	Tau_Passive
 1	0	1	1	1	1	1	1
 gddonset	Q10	Rl0	Rs0	Rr0			

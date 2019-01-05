@@ -4,7 +4,7 @@ Format to passing arguments to TECO model
 ./TECO.out input/SEV_pars.txt input/SEV_forcing_2010_2017.txt input/SEV_obs_flux.txt output/ 0 input/SEV_da_pars.txt
 
 % Option 2:
-./TECO.out input/SPRUCE_pars.txt input/SPRUCE_forcing.txt input/SPRUCE_obs.txt output/ 2 input/SPRUCE_da_pars.txt input/Weathergenerate 2024 365 2.25 380.0
+./TECO.out input/SEV_pars.txt input/SEV_forcing_2010_2017.txt input/SEV_obs_flux.txt output/ 2 input/SEV_da_pars.txt input/Weathergenerate 2027 365 2.25 380.0
 
 % 1st argument is parameter file generated from portal
 % 2nd argument is historical forcing file from SPRUCE site
