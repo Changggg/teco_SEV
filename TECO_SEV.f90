@@ -1121,10 +1121,10 @@ program TECO_MCMC
         else
             if(mod(isimu,nc).eq.0)then
                 if(real(upgraded)/real(isimu) .lt. 0.23)then
-                !    search_length=search_length*0.9
+                    search_length=search_length*0.9
                 else
                     if(real(upgraded)/real(isimu) .gt. 0.44)then
-                !        search_length=search_length*1.1
+                        search_length=search_length*1.1
                     endif
                 endif
                 reject=0
